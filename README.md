@@ -10,7 +10,6 @@ Pandas and Polars are two powerful Python libraries for data manipulation and an
 
 This repository features challenging assignments with solutions in both Pandas and Polars, aiming to compare their syntax and performance.
 
-
 ## Resources
 
 * [Polars, DuckDB, Pandas, Modin, Ponder, Fugue, Daft — which one is the best dataframe and SQL tool?](https://kestra.io/blogs/2023-08-11-dataframes)
