@@ -1,0 +1,13 @@
+services:
+  bear_matches_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bear-matches-image
+    container_name: bear-matches-container
+    volumes:
+      - ./src:/app/src
+
+
+
+

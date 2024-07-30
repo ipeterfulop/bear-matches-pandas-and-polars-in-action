@@ -2,15 +2,47 @@ import os
 import json
 import inspect
 import pandas as pd
+import polars as pl
 from typing import List, Dict, Tuple, Optional, Callable
+from abc import ABC, abstractmethod
 
 
-class MovieDataProvider:
+class MovieDataProvider(ABC):
 
     @staticmethod
-    def load_json_as_pandas_dataframe(json_file_name: str,
-                                      schema_provider: Callable,
-                                      index_column: Optional[str] = None) -> pd.DataFrame:
+    @abstractmethod
+    def load_json_as_dataframe(json_file_name: str,
+                               schema_provider: Callable,
+                               index_column: Optional[str] = None):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_schema_aligned_dataframe(dataframe, schema):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_genres_schema():
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_movies_schema():
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_movie_genre_schema():
+        pass
+
+
+class MovieDataProviderForPandas(MovieDataProvider):
+
+    @staticmethod
+    def load_json_as_dataframe(json_file_name: str,
+                               schema_provider: Callable,
+                               index_column: Optional[str] = None) -> pd.DataFrame:
 
         path_to_json_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
@@ -23,15 +55,15 @@ class MovieDataProvider:
             df = pd.DataFrame(json_data)
             df.reset_index(drop=True, inplace=True)
 
-            df = MovieDataProvider.get_schema_aligned_dataframe(df, schema_provider())
+            df = MovieDataProviderForPandas.get_schema_aligned_dataframe(df, schema_provider())
 
             if index_column:
                 df.set_index(index_column, inplace=True)
 
         except ValueError as e:
-            print(f"\n [Error] Error generated while processing {path_to_json_file} in {MovieDataProvider.__name__}."
-                  + inspect.currentframe().f_code.co_name + f".\n Message:\n{e}")
-            exit(1)
+            raise ValueError(f"\n [Error] Error generated while processing "
+                             + f"{path_to_json_file} in {MovieDataProviderForPandas.__name__}."
+                             + inspect.currentframe().f_code.co_name + f".\n Message:\n{e}")
 
         return df
 
@@ -62,7 +94,7 @@ class MovieDataProvider:
             "homepage": "object",
             "overview": "object",
             "popularity": "float64",
-            "release_date": "datetime64",
+            "release_date": "object",
             "revenue": "int64",
             "runtime": "int64",
             "movie_status": "object",
@@ -72,8 +104,30 @@ class MovieDataProvider:
         }
 
     @staticmethod
-    def get_movie_genres_schema() -> Dict:
+    def get_movie_genre_schema() -> Dict:
         return {
-            "movie_id": "int",
-            "genre_id": "int"
+            "movie_id": "int64",
+            "genre_id": "int64"
         }
+
+
+class MovieDataProviderForPolars(MovieDataProvider):
+    @staticmethod
+    def load_json_as_dataframe(json_file_name: str, schema_provider: Callable, index_column: Optional[str] = None):
+        pass
+
+    @staticmethod
+    def get_schema_aligned_dataframe(dataframe, schema):
+        pass
+
+    @staticmethod
+    def get_genres_schema():
+        pass
+
+    @staticmethod
+    def get_movies_schema():
+        pass
+
+    @staticmethod
+    def get_movie_genre_schema():
+        pass
