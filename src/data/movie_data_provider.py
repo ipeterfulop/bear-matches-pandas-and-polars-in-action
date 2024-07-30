@@ -10,7 +10,6 @@ class MovieDataProvider:
     @staticmethod
     def load_json_as_pandas_dataframe(json_file_name: str,
                                       schema_provider: Callable,
-                                      schema_validator: Callable,
                                       index_column: Optional[str] = None) -> pd.DataFrame:
 
         path_to_json_file = os.path.join(
@@ -22,6 +21,8 @@ class MovieDataProvider:
                 json_data = json.load(file)
 
             df = pd.DataFrame(json_data)
+            df.reset_index(drop=True, inplace=True)
+
             df = MovieDataProvider.get_schema_aligned_dataframe(df, schema_provider())
 
             if index_column:
@@ -32,14 +33,18 @@ class MovieDataProvider:
                   + inspect.currentframe().f_code.co_name + f".\n Message:\n{e}")
             exit(1)
 
-        return schema_validator(df, schema_provider())
+        return df
 
     @staticmethod
     def get_schema_aligned_dataframe(dataframe: pd.DataFrame, schema: Dict) -> pd.DataFrame:
-        for column, dtype in schema.items():
-            dataframe[column] = dataframe[column].astype(dtype)
 
-        return df
+        for column, dtype in schema.items():
+            if column in dataframe.columns:
+                dataframe[column] = dataframe[column].astype(dtype)
+            else:
+                raise Exception(f"Warning: Column {column} not found in DataFrame")
+
+        return dataframe
 
     @staticmethod
     def get_genres_schema() -> Dict:
@@ -57,7 +62,7 @@ class MovieDataProvider:
             "homepage": "object",
             "overview": "object",
             "popularity": "float64",
-            "release_date": "object",  # Use 'datetime64' if you want to convert it to datetime
+            "release_date": "datetime64",
             "revenue": "int64",
             "runtime": "int64",
             "movie_status": "object",
