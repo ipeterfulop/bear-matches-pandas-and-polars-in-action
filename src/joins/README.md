@@ -35,8 +35,8 @@ various ways to derive meaningful insights. This repository covers:
 
 * The "Movies and associated genres" example demonstrates how to perform an inner join
   between two or more DataFrames to retrieve the movies and their associated genres.  
-  The solution also show you how to perform apply custom manipulations (lamdas) on a group of rows.
-  **Solutions**: [Pandas](pandas/movies_and_genres.py) | Polars
+  The solution also show you how to perform apply custom manipulations (lamdas) on a group of rows.  
+  **Solutions**: [Pandas](pandas/movies_and_genres.py) | [Polars](polars/movies_with_genres.py)
 
 ### Outer Joins
 
