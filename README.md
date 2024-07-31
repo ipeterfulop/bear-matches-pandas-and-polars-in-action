@@ -78,4 +78,5 @@ With this setup, you can run the container in detached mode and easily execute a
 
 ## 2. Resources
 
+* [Advanced Pandas: 21 Powerful Tips for Efficient Data Manipulation](https://medium.com/@sayahfares19/advanced-pandas-21-powerful-tips-for-efficient-data-manipulation-71a2f87276ef)
 * [Polars, DuckDB, Pandas, Modin, Ponder, Fugue, Daft — which one is the best dataframe and SQL tool?](https://kestra.io/blogs/2023-08-11-dataframes)
