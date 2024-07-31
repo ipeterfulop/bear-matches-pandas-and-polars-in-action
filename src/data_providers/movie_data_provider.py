@@ -46,6 +46,8 @@ class MovieDataProviderForPandas(MovieDataProvider):
 
         path_to_json_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
+            '..',
+            'data',
             json_file_name)
 
         try:

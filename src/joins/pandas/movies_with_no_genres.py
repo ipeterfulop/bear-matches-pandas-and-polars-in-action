@@ -9,8 +9,8 @@ import os
 import sys
 import pandas as pd
 
-data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../', 'data'))
-sys.path.insert(0, data_path)
+data_provider_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../', 'data_providers'))
+sys.path.insert(0, data_provider_path)
 from movie_data_provider import MovieDataProviderForPandas
 
 df_movies = (
