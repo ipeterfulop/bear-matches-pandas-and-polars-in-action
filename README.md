@@ -10,6 +10,7 @@ Pandas and Polars are two powerful Python libraries for data manipulation and an
 
 This repository features challenging assignments with solutions in both Pandas and Polars, aiming to compare their syntax and performance.
 
+**Please note that the current repository is a work in progress and is  being updated with new assignments and solutions.**
 ## 1. Running your code with Docker
 ![Dcoker](assets/docker.png)
 
@@ -78,5 +79,12 @@ With this setup, you can run the container in detached mode and easily execute a
 
 ## 2. Resources
 
-* [Advanced Pandas: 21 Powerful Tips for Efficient Data Manipulation](https://medium.com/@sayahfares19/advanced-pandas-21-powerful-tips-for-efficient-data-manipulation-71a2f87276ef)
-* [Polars, DuckDB, Pandas, Modin, Ponder, Fugue, Daft — which one is the best dataframe and SQL tool?](https://kestra.io/blogs/2023-08-11-dataframes)
+* [Official Pandas Documentation](https://pandas.pydata.org/docs/)
+* [Official Polars Documentation](https://docs.pola.rs/api/python/stable/reference/index.html)
+* `[article]` [Advanced Pandas: 21 Powerful Tips for Efficient Data Manipulation](https://medium.com/@sayahfares19/advanced-pandas-21-powerful-tips-for-efficient-data-manipulation-71a2f87276ef)
+* `[article]`[Polars, DuckDB, Pandas, Modin, Ponder, Fugue, Daft — which one is the best dataframe and SQL tool?](https://kestra.io/blogs/2023-08-11-dataframes)
+
+## 3. Suggestions and Feedback
+
+I would love to hear your suggestions and feedback. Please feel free to reach out to me at   
+[hi [at] peterfulop [dot] tech](mailto:hi@peterfulop.tech).
