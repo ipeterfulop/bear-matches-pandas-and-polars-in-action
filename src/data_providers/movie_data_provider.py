@@ -3,7 +3,7 @@ import json
 import inspect
 import pandas as pd
 import polars as pl
-from typing import List, Dict, Tuple, Optional, Callable
+from typing import List, Dict, Tuple, Optional, Callable, Any, Union
 from abc import ABC, abstractmethod
 
 
@@ -13,27 +13,27 @@ class MovieDataProvider(ABC):
     @abstractmethod
     def load_json_as_dataframe(json_file_name: str,
                                schema_provider: Callable,
-                               index_column: Optional[str] = None):
+                               index_column: Optional[str] = None) -> Union[pd.DataFrame | pl.DataFrame]:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_schema_aligned_dataframe(dataframe, schema):
+    def get_schema_aligned_dataframe(dataframe, schema) -> Union[pd.DataFrame | pl.DataFrame]:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_genres_schema():
+    def get_genres_schema() -> Dict[str, Any]:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_movies_schema():
+    def get_movies_schema() -> Dict[str, Any]:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_movie_genre_schema():
+    def get_movie_genre_schema() -> Dict[str, Any]:
         pass
 
 
@@ -81,14 +81,14 @@ class MovieDataProviderForPandas(MovieDataProvider):
         return dataframe
 
     @staticmethod
-    def get_genres_schema() -> Dict:
+    def get_genres_schema() -> Dict[str, Any]:
         return {
             "genre_id": "int64",
             "genre_name": "object"
         }
 
     @staticmethod
-    def get_movies_schema() -> Dict:
+    def get_movies_schema() -> Dict[str, Any]:
         return {
             "movie_id": "int64",
             "title": "object",
@@ -106,7 +106,7 @@ class MovieDataProviderForPandas(MovieDataProvider):
         }
 
     @staticmethod
-    def get_movie_genre_schema() -> Dict:
+    def get_movie_genre_schema() -> Dict[str, Any]:
         return {
             "movie_id": "int64",
             "genre_id": "int64"
@@ -173,14 +173,14 @@ class MovieDataProviderForPolars:
         return dataframe
 
     @staticmethod
-    def get_genres_schema() -> Dict:
+    def get_genres_schema() -> Dict[str, Any]:
         return {
             "genre_id": pl.Int64,
             "genre_name": pl.Utf8
         }
 
     @staticmethod
-    def get_movies_schema() -> Dict:
+    def get_movies_schema() -> Dict[str, Any]:
         return {
             "movie_id": pl.Int64,
             "title": pl.Utf8,
@@ -198,7 +198,7 @@ class MovieDataProviderForPolars:
         }
 
     @staticmethod
-    def get_movie_genre_schema() -> Dict:
+    def get_movie_genre_schema() -> Dict[str, Any]:
         return {
             "movie_id": pl.Int64,
             "genre_id": pl.Int64
