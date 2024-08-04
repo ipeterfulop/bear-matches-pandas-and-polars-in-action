@@ -32,7 +32,9 @@ Optimized Row Columnar (ORC) is a column-oriented data storage format that belon
 Although ORC files and their processing might not usually fall within a data scientist's typical responsibilities, there
 are times when you'll need to extract and manipulate these files using your preferred data munging libraries.    
 
-* Reading and writing OCR files is a common task in data processing. The examples in the repo file demonstrate how
+* Reading and writing OCR files 
+  in [Pandas](https://pandas.pydata.org/docs/reference/api/pandas.read_orc.html#pandas.read_orc) and Polars 
+  is a common task in data processing. The examples in the repo file demonstrate how
   to read and write OCR files using Pandas and Polars.  
   **Solution:** [Pandas](orc/pandas/writing_reading_parquet.py) | Polars
 
