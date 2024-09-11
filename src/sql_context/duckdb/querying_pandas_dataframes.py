@@ -3,6 +3,12 @@ This module contains a brief example of how to query a pandas DataFrame using Du
 In certain cases, when you want to query a large pandas dataframe using SQL, 
 or when you want to take advantage of DuckDB's query optimization and execution capabilities
 you can use the DuckDB API to query the pandas DataFrame.
+
+Task:
+    Given a pandas DataFrame containing movie data, list the number of movies released each year
+    where the number of movies released in a year is greater than 30. List the years in descending order
+    of the number of movies released.
+
 Docs: https://duckdb.org/docs/guides/python/sql_on_pandas.html
 """
 
@@ -19,9 +25,9 @@ from movie_data_provider import MovieDataProviderForPandas
 df_movies = (
     MovieDataProviderForPandas.load_json_as_dataframe(json_file_name="movies.json",
                                                       schema_provider=MovieDataProviderForPandas.get_movies_schema,
-                                                      index_column="movie_id"))
+                                                      index_column=None))
 
-
+df_movies['release_date'] = pd.to_datetime(df_movies['release_date'], format='%Y-%m-%d', errors='coerce')
 
 query = """
         SELECT 
@@ -34,5 +40,5 @@ query = """
         ORDER BY COUNT(*) DESC    
         """
 
-df_movie_stats = duckdb.sql(query).df()
+df_movie_stats = duckdb.sql(query).df(index=False)
 print(df_movie_stats)
