@@ -39,3 +39,20 @@ are_equal = df_movies.equals(df_movies_from_parquet)
 
 print("Result of comparing the original DataFrame with the one read from the Parquet file:",
       are_equal)
+
+#create another parquet file to be used in further coding examples
+df_movie_genre = MovieDataProviderForPolars.load_json_as_dataframe(
+    json_file_name="movie_genre.json",
+    schema_provider=MovieDataProviderForPolars.get_movie_genre_schema,
+    index_column=None,
+)
+
+parquet_file_path = os.path.abspath(
+    os.path.join(data_provider_path, "../data", "movie_genre.parquet")
+)
+
+# Write the DataFrame to a Parquet file
+# documentation: https://docs.pola.rs/api/python/stable/reference/api/polars.DataFrame.write_parquet.html
+df_movie_genre.write_parquet(parquet_file_path,
+                        compression="zstd",
+                        use_pyarrow=True)
